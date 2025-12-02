@@ -14,3 +14,5 @@ if you can add any files in local repository or you can change the existing file
 2. git add . 
 3. git commit -m "message"
 4. git push origin master
+------------------------------------------------------------------------------------------------------------------------------
+To remove git - rmdir /s /q .git
