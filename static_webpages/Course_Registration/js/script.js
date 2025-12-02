@@ -1,7 +1,8 @@
-// Auto-calculate total fee
 let subjects = document.querySelectorAll(".subject");
 let totalBox = document.getElementById("total");
+let resultBox = document.getElementById("result");
 
+// Update total fee when checkboxes change
 subjects.forEach(item => {
     item.addEventListener("change", () => {
         let total = 0;
@@ -16,10 +17,15 @@ subjects.forEach(item => {
     });
 });
 
-// Optional: form submit
-document.getElementById("regForm").addEventListener("submit", function(e){
-    e.preventDefault();
-      e.preventDefault();
+// Handle form submit
+document.getElementById("regForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // prevent page reload
+
+    let studentName = document.getElementById("name").value.trim();
+    if (studentName === "") {
+        alert("Please enter student name.");
+        return;
+    }
 
     let selectedSubjects = [];
     let totalFee = 0;
@@ -27,10 +33,10 @@ document.getElementById("regForm").addEventListener("submit", function(e){
 
     subjects.forEach(sub => {
         if (sub.checked) {
-
-            // Get subject name from the label text
+            // Get subject name + fee from label text
             let subjectName = sub.parentElement.innerText.trim();
-            selectedSubjects.push(count+ "."+subjectName);
+            selectedSubjects.push(count + ". " + subjectName);
+            count++;
 
             totalFee += parseInt(sub.value);
         }
@@ -41,12 +47,10 @@ document.getElementById("regForm").addEventListener("submit", function(e){
         return;
     }
 
-    let studentName = document.getElementById("name").value;
-
     let message =
         "Student Name: " + studentName + "\n\n" +
-        "Selected Subjects:\n- " + selectedSubjects.join("\n1- ") + "\n\n" +
+        "Selected Subjects:\n" + selectedSubjects.join("\n") + "\n\n" +
         "Total Fee: ₹" + totalFee;
 
-    document.getElementById("result").innerText=message;
+    resultBox.innerText = message;
 });
